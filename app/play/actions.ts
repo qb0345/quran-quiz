@@ -66,7 +66,7 @@ export async function submitAttempt(
   });
   if (ierr) return { error: ierr.message };
 
-  // Community (source=user) attempts don't feed the ML pipeline per spec 2026-09-15.
+  // Community (source=user) attempts don't feed the ML pipeline.
   let eloResult: Awaited<ReturnType<typeof updateElo>> = null;
   if (q.source !== 'user') {
     // Fire ML update; ignore failures (degrade path).

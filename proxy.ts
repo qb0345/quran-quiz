@@ -31,9 +31,17 @@ export async function proxy(request: NextRequest) {
     }
     const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
     if (profile?.role !== 'admin') return new NextResponse('Forbidden', { status: 403 });
-    // AAL2 (TOTP) enforcement disabled per bal's request 2026-09-15.
-    // TOTP enroll remains available at /profile/security; login flow still routes
-    // through /auth/mfa when a user has an enrolled factor.
+    // AAL2 (TOTP) is not enforced on the admin route by default. TOTP enroll
+    // remains available at /profile/security; login flow still routes through
+    // /auth/mfa when a user has an enrolled factor. Uncomment the block below
+    // to require AAL2 for /admin/*.
+    // const { data: aalData } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    // if (aalData?.currentLevel !== 'aal2') {
+    //   const url = request.nextUrl.clone();
+    //   url.pathname = '/auth/mfa';
+    //   url.searchParams.set('next', path);
+    //   return NextResponse.redirect(url);
+    // }
   }
 
   return response;

@@ -1,0 +1,31 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: http://host.docker.internal:54621
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    environment:
+      SUPABASE_URL: http://host.docker.internal:54621
+      NEXT_PUBLIC_SUPABASE_URL: http://host.docker.internal:54621
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      ML_URL: http://ml:8400
+    ports:
+      - "3400:3400"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - ml
+
+  ml:
+    build:
+      context: .
+      dockerfile: Dockerfile.ml
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@host.docker.internal:54622/postgres
+    ports:
+      - "8400:8400"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

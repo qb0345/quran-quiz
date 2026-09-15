@@ -119,7 +119,7 @@ export function rollStreak(input: {
 
 /**
  * Return newly-earned badge IDs given a completed session + updated cumulative stats.
- * Rules (spec §9):
+ * Rules:
  *  - first_quiz: cumulative.totalQuizzes === 1 (this session was the first)
  *  - perfect_10: session.correct === 10 && session.total === 10
  *  - streak_7: cumulative.currentStreak >= 7
