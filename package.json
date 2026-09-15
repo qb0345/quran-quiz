@@ -1,0 +1,33 @@
+{
+  "name": "quran-quiz",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3400",
+    "build": "next build",
+    "start": "next start -p 3400",
+    "lint": "eslint",
+    "test": "vitest run",
+    "gen:seed": "node --experimental-strip-types seed/generate-questions.mts",
+    "create:admin": "node --env-file=.env --experimental-strip-types scripts/create-admin.mts",
+    "demo:preflight": "node --env-file=.env --experimental-strip-types scripts/demo-preflight.mts"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^2.1.9"
+  }
+}
